@@ -49,14 +49,15 @@ namespace ScaryTales
         /// Максимальное количество такой карты в калоде
         /// </summary>
         public abstract int CardCountInDeck { get; }
-        /// <summary>
-        /// Когда эффект должен примениться
-        /// </summary>
-        public abstract CardEffectTimeApply EffectTimeApply { get; }
-        public abstract void ActivateEffect(IEnvironment env);
 
-        //public Func<GameBoard, int> CalculatePoints { get; set; }
-        //public Action<GameBoard> ApplyEffect { get; set; }
+        protected abstract ICardEffect Effect { get; }
 
+        //protected abstract void AddEffect(ICardEffect effect);
+
+        public void ActivateEffect(IGameBoard gameBoard,
+            IGameState gameState, CardEffectTimeApply time)
+        {
+            Effect.ApplyEffect(gameState, gameBoard);
+        }
     }
 }

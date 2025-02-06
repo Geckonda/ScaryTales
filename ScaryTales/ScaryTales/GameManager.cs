@@ -1,4 +1,5 @@
-﻿using ScaryTales.Delegates;
+﻿using ScaryTales.Abstractions;
+using ScaryTales.Delegates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace ScaryTales
 {
-    public class GameManager
+    public class GameManager : IGameState
     {
         private List<Player> _players;          // Список игроков
         private int _currentPlayerIndex;        // Индекс текущего игрока
         private GameBoard _gameBoard;           // Игровое поле
         private Deck _deck;                     // Общая колода
         public MessageHandler _logAction { get; set; } // Делегат для вывода сообщений
+        public bool IsNight { get; set; } = true;
 
         public GameManager(List<Player> players, Deck deck, GameBoard gameBoard, MessageHandler output)
         {
@@ -89,14 +91,7 @@ namespace ScaryTales
         // Метод для подсчёта очков игрока по завершению хода
         private void CalculatePoints(Player player)
         {
-            var cards = _gameBoard.GetPlayerCardsOnBoard(player);
-            var result = 0;
-            foreach (var card in cards)
-            {
-                if(card.EffectTimeApply == CardEffectTimeApply.PassiveIncome)
-                    card.ActivateEffect(_gameBoard);
-
-            }
+            //
         }
 
         // Метод для проверки окончания игры
@@ -134,5 +129,11 @@ namespace ScaryTales
                 _logAction?.Invoke("Ничья!");
             }
         }
+
+        public List<Player> GetPlayers() => _players;
+
+        public Player GetCurrentPlayer() => _players[_currentPlayerIndex];
+
+        public Deck GetDeck() => _deck;
     }
 }

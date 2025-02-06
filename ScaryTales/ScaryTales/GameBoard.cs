@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace ScaryTales
 {
-    public class GameBoard : IEnvironment
+    public class GameBoard : IGameBoard
     {
-        public bool IsNight { get; set; } = true;
         private List<Card> _cardsOnBoard;       // Карты, находящиеся на игровом столе
         private List<Card> _discardPile;        // Общая колода сброса
 

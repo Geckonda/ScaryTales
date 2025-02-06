@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace ScaryTales.Abstractions
 {
-    public interface IEnvironment
+    public interface IGameBoard
     {
-        /// <summary>
-        /// Проверяет, ночь ли в игре
-        /// </summary>
-        public bool IsNight { get; set; }
-
         /// <summary>
         /// Получение всех разыгранных карт, которые в данный момент на столе
         /// </summary>

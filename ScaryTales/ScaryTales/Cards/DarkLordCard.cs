@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ScaryTales.Cards
 {
-    public class DarkLord : Card
+    public class DarkLordCard : Card
     {
         public override string Name => "Темный владыка";
 
@@ -21,19 +21,6 @@ namespace ScaryTales.Cards
 
         public override int CardCountInDeck => 2;
 
-        public override CardEffectTimeApply EffectTimeApply => CardEffectTimeApply.Immediately;
-
-        public override void ActivateEffect(IEnvironment env)
-        {
-            if (this.Owner == null)
-                throw new InvalidOperationException("Карта никому не принадлежит");
-
-            var cards = env.GetCardsOnBoard();
-            foreach (var card in cards)
-            {
-                if (card.Type == CardType.Monster)
-                    this.Owner.AddPoints(2);
-            }
-        }
+        protected override ICardEffect Effect => throw new NotImplementedException();
     }
 }
