@@ -65,6 +65,8 @@ namespace ScaryTales
             currentPlayer.DrawCard();
             currentPlayer.ShowHand();
             var card = currentPlayer.PlayCard(int.Parse(Console.ReadLine()!) - 1);
+            this.Notificate($"Игрок {currentPlayer.Name} получает {card.Points} по за разыгрывание карты {card.Name}.");
+            currentPlayer.AddPoints(card.Points);
             card.ActivateEffect(_gameBoard, this, CardEffectTimeApply.Immediately);
             EndTurn();
         }

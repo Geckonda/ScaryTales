@@ -96,7 +96,11 @@ namespace ScaryTales
         {
             return _cardsOnBoard.Where(x => x.Type == type).ToList();
         }
-
+        /// <summary>
+        /// Удаляет карту с игрвого поля.
+        /// </summary>
+        /// <param name="card">Картя на удаление</param>
+        public void RemoveCardFromBoard(Card card) => _cardsOnBoard.Remove(card);
         // Получение количества карт на столе
         public int CardsOnBoardCount => _cardsOnBoard.Count;
 

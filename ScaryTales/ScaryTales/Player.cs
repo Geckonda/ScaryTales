@@ -108,7 +108,16 @@ namespace ScaryTales
                 throw new ArgumentOutOfRangeException("Неверный индекс карты.");
             }
         }
-
+        /// <summary>
+        /// Берт карту с поля и кладет в руку игроку.
+        /// </summary>
+        /// <param name="card">Карта, которая должна оказаться в руке</param>
+        public void PutCardFromBoardInHand(Card card)
+        {
+            _gameBoard.RemoveCardFromBoard(card);
+            _hand.Add(card);
+            Output.Invoke($"Игрок {this.Name} кладет карту {card.Name} с поля в руку.");
+        }
         public Card ChooseCardFromBoard(int index)
         {
             return _gameBoard.GetCardsOnBoard()[index];

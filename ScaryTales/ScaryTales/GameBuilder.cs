@@ -40,6 +40,7 @@ namespace ScaryTales
             templates.Add(new DarkLordCard());
             templates.Add(new DragonCard());
             templates.Add(new EnchantedForestCard());
+            templates.Add(new PrincessCard());
 
             return templates;
         }
