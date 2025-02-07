@@ -38,6 +38,7 @@ namespace ScaryTales
             templates.Add(new NightChildCard());
             templates.Add(new OldMasterCard());
             templates.Add(new DarkLordCard());
+            templates.Add(new DragonCard());
 
             return templates;
         }
