@@ -16,27 +16,27 @@ namespace ScaryTales.CardEffects
 
         public void ApplyEffect(IGameState gameState, IGameBoard gameBoard)
         {
-            var monsters = gameBoard.GetCardsOnBoard()
-               .Where(x => x.Type == CardType.Monster).ToList();
+            var places = gameBoard.GetCardsOnBoard()
+               .Where(x => x.Type == CardType.Place).ToList();
             var men = gameBoard.GetCardsOnBoard()
                .Where(x => x.Type == CardType.Man).ToList();
-            if (monsters.Any() && men.Any())
+            if (places.Any() && men.Any())
             {
                 gameState.Notificate("Не нашлось ни одной карты для сброса.");
                 return;
             }
             var player = gameState.GetCurrentPlayer();
-            if (!monsters.Any())
-                gameState.Notificate("Нет ни одной карты 'Злодей' на столе");
+            if (!places.Any())
+                gameState.Notificate("Нет ни одной карты 'Место' на столе");
             else
             {
-                PrintCards(monsters, gameState.Notificate, "Злодей");
+                PrintCards(places, gameState.Notificate, "Место");
                 var index = int.Parse(Console.ReadLine()!) - 1;
-                var monster = monsters[index];
-                gameState.Notificate($"Игрок {player.Name} сбросил карту {monster.Name}");
-                player.DiscardCardFromBoard(monster);
+                var place = places[index];
+                gameState.Notificate($"Игрок {player.Name} сбросил карту {place.Name}");
+                player.DiscardCardFromBoard(place);
                 player.AddPoints(2);
-                gameState.Notificate($"Игрок {player.Name} получил 2 ПО");
+                gameState.Notificate($"Игрок {player.Name} получил 2 ПО.");
             }
             if (!men.Any())
                 gameState.Notificate("Нет ни одной карты 'Мужчина' на столе");
