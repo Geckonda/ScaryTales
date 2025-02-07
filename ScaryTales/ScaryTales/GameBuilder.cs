@@ -34,15 +34,15 @@ namespace ScaryTales
         }
         private List<Card> MakeTemplates()
         {
-            var templates = new List<Card>();
-            templates.Add(new NightChildCard());
-            templates.Add(new OldMasterCard());
-            templates.Add(new DarkLordCard());
-            templates.Add(new DragonCard());
-            templates.Add(new EnchantedForestCard());
-            templates.Add(new PrincessCard());
-
-            return templates;
+            return new List<Card>()
+            {
+                new NightChildCard(), 
+                new OldMasterCard(), 
+                new DarkLordCard(), 
+                new DragonCard(), 
+                new EnchantedForestCard(), 
+                new PrincessCard(), 
+            };
         }
     }
 }
