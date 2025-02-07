@@ -37,6 +37,7 @@ namespace ScaryTales
         public void AddCardToDiscardPile(Card card)
         {
             card.Position = CardPosition.Discarded;
+            _cardsOnBoard.Remove(card);
             _discardPile.Add(card);
             Output?.Invoke($"Карта {card.Name} была сброшена.");
         }
