@@ -42,6 +42,7 @@ namespace ScaryTales
                 new DragonCard(), 
                 new EnchantedForestCard(), 
                 new PrincessCard(), 
+                new WizardCard(), 
             };
         }
     }
