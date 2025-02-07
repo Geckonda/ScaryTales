@@ -92,6 +92,11 @@ namespace ScaryTales
         // Получение все разыгранных карт, лежащих на столе
         public List<Card> GetCardsOnBoard() => _cardsOnBoard;
 
+        public List<Card> GetCardsOnBoardByType(CardType type)
+        {
+            return _cardsOnBoard.Where(x => x.Type == type).ToList();
+        }
+
         // Получение количества карт на столе
         public int CardsOnBoardCount => _cardsOnBoard.Count;
 

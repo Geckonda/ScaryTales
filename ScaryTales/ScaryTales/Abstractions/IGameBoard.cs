@@ -13,6 +13,13 @@ namespace ScaryTales.Abstractions
         /// </summary>
         /// <returns>Список карт</returns>
         public List<Card> GetCardsOnBoard();
+
+        /// <summary>
+        /// Получение разыгранных карт по типу, которые в данный момент на столе
+        /// </summary>
+        /// <param name="type">Тип карты</param>
+        /// <returns>Список карт конкретного типа</returns>
+        public List<Card> GetCardsOnBoardByType(CardType type);
         /// <summary>
         /// Метод для сброса карты (перемещение из игры на столе в колоду сброса)
         /// </summary>

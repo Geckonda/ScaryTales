@@ -15,16 +15,14 @@ namespace ScaryTales.CardEffects
 
         public void ApplyEffect(IGameState gameState, IGameBoard gameBoard)
         {
-            var monsters = gameBoard.GetCardsOnBoard()
-                .Where(x => x.Type == CardType.Monster).ToList();
+            var monsters = gameBoard.GetCardsOnBoardByType(CardType.Monster);
             int earnedPoints = monsters.Count << 1;
             var player = gameState.GetCurrentPlayer();
             gameState.Notificate($"Игрок {player.Name} заработал {earnedPoints} ПО");
             player.AddPoints(earnedPoints);
 
             // Пользователь выбирает карту на сброс
-            var places = gameBoard.GetCardsOnBoard()
-                .Where(x => x.Type == CardType.Place).ToList();
+            var places = gameBoard.GetCardsOnBoardByType(CardType.Place);
             if (!places.Any())
             {
                 Console.WriteLine("Нет ни одной карты 'Место' на столе");

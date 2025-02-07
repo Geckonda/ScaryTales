@@ -16,10 +16,8 @@ namespace ScaryTales.CardEffects
 
         public void ApplyEffect(IGameState gameState, IGameBoard gameBoard)
         {
-            var places = gameBoard.GetCardsOnBoard()
-               .Where(x => x.Type == CardType.Place).ToList();
-            var men = gameBoard.GetCardsOnBoard()
-               .Where(x => x.Type == CardType.Man).ToList();
+            var places = gameBoard.GetCardsOnBoardByType(CardType.Place);
+            var men = gameBoard.GetCardsOnBoardByType(CardType.Man);
             if (places.Any() && men.Any())
             {
                 gameState.Notificate("Не нашлось ни одной карты для сброса.");
