@@ -18,7 +18,7 @@ namespace ScaryTales.Cards
 
         public override string EffectDescription => "Получите 2 ПО за каждого разыгранного злодея. Сбросьте 1 разыгранное место.";
 
-        public override CardPosition PositionAfterDiscard => CardPosition.Discarded;
+        public override CardPosition PositionAfterPlay => CardPosition.Discarded;
 
         public override int CardCountInDeck => 8;
 

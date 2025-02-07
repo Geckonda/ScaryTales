@@ -48,7 +48,7 @@ namespace ScaryTales
         /// <summary>
         /// Позиция карты после разыгрывания
         /// </summary>
-        public abstract CardPosition PositionAfterDiscard { get; }
+        public abstract CardPosition PositionAfterPlay { get; }
         public Player? Owner { get; set; }
         /// <summary>
         /// Максимальное количество такой карты в калоде

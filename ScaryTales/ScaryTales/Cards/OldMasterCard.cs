@@ -18,7 +18,7 @@ namespace ScaryTales.Cards
 
         public override string EffectDescription => "Если сейчас день, получите 2 ПО в конце своего хода.";
 
-        public override CardPosition PositionAfterDiscard => CardPosition.BeforePlayer;
+        public override CardPosition PositionAfterPlay => CardPosition.BeforePlayer;
 
         public override int CardCountInDeck => 8;
 

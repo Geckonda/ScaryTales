@@ -25,7 +25,7 @@ namespace ScaryTales
         // Метод для разыгрывания карты на стол
         public void PlayCardOnBoard(Card card)
         {
-            card.Position = card.PositionAfterDiscard;
+            card.Position = card.PositionAfterPlay;
             if (card.Position == CardPosition.OnGameBoard || card.Position == CardPosition.BeforePlayer)
             {
                 _cardsOnBoard.Add(card);
