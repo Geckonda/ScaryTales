@@ -20,10 +20,22 @@ namespace ScaryTales.Cards
 
         public override CardPosition PositionAfterDiscard => CardPosition.BeforePlayer;
 
-        public override int CardCountInDeck => 12;
+        public override int CardCountInDeck => 8;
 
-        protected override ICardEffect Effect { get; } = new PassiveIncomeEffect();
+        public override ICardEffect Effect { get; } = new PassiveFixPointsFarmEffect(2);
 
+        public override void ActivateEffect(IGameBoard gameBoard,
+            IGameState gameState, CardEffectTimeApply time)
+        {
+            if (Effect.EffectTime == time && !gameState.IsNight)
+            {
+                Effect.ApplyEffect(gameState, gameBoard);
+            }
+        }
 
+        public override Card Clone()
+        {
+            return new OldMasterCard();
+        }
     }
 }

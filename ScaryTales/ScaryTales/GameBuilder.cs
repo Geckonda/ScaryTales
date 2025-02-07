@@ -23,8 +23,8 @@ namespace ScaryTales
 
             deck.ShowDeckInfo();
             // Создаем игроков
-            var player1 = new Player("Игрок 1", deck, gameBoard, _messageHandler);
-            var player2 = new Player("Игрок 2", deck, gameBoard, _messageHandler);
+            var player1 = new Player("Саша", deck, gameBoard, _messageHandler);
+            var player2 = new Player("Вова", deck, gameBoard, _messageHandler);
 
             // Список игроков
             var players = new List<Player> { player1, player2 };

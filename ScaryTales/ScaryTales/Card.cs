@@ -22,6 +22,11 @@ namespace ScaryTales
         OnGameBoard, // На игровом поле общем
         Discarded      // Битая карта
     }
+    public enum CardEffectType
+    {
+        PassiveFarmAtTheEnd,
+        Instant
+    }
     public enum CardEffectTimeApply
     {
         Immediately,
@@ -50,14 +55,13 @@ namespace ScaryTales
         /// </summary>
         public abstract int CardCountInDeck { get; }
 
-        protected abstract ICardEffect Effect { get; }
+        public abstract ICardEffect Effect { get; }
 
         //protected abstract void AddEffect(ICardEffect effect);
 
-        public void ActivateEffect(IGameBoard gameBoard,
-            IGameState gameState, CardEffectTimeApply time)
-        {
-            Effect.ApplyEffect(gameState, gameBoard);
-        }
+        public abstract void ActivateEffect(IGameBoard gameBoard,
+            IGameState gameState, CardEffectTimeApply time);
+
+        public abstract Card Clone();
     }
 }

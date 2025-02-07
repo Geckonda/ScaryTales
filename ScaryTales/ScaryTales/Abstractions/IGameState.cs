@@ -27,5 +27,10 @@ namespace ScaryTales.Abstractions
         /// Доступ к колоде.
         /// </summary>
         Deck GetDeck();
+
+        /// <summary>
+        /// Уведомляет пользователя о совершении действия или операции
+        /// </summary>
+        void Notificate(string message);
     }
 }

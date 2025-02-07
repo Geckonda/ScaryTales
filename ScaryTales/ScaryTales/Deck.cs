@@ -16,7 +16,7 @@ namespace ScaryTales
         {
             foreach (var template in templates)
                 for (int i = 0; i < template.CardCountInDeck; i++)
-                    _cards.Add(template);
+                    _cards.Add(template.Clone());
 
             Shuffle();                       // Тасуем основную колоду при создании
         }

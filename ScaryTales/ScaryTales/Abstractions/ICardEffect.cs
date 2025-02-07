@@ -8,7 +8,8 @@ namespace ScaryTales.Abstractions
 {
     public interface ICardEffect
     {
-        public CardEffectTimeApply EffectTime { get; } // Время активации эффекта
+        public CardEffectTimeApply EffectTime { get; } // Время активации эффекта // Нужен ли?
+        public CardEffectType Type { get; } // Тип эффекта
         public void ApplyEffect(IGameState gameState, IGameBoard gameBoard);
     }
 }

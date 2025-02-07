@@ -25,15 +25,22 @@ namespace ScaryTales
             _logAction = output;
             _currentPlayerIndex = new Random().Next(0, players.Count);
         }
-
+        /// <summary>
+        /// Уведомляет о совершении действия или операции
+        /// </summary>
+        /// <param name="message"></param>
+        public void Notificate(string message)
+        {
+            _logAction?.Invoke(message);
+        }
         // Метод для начала игры
         public void StartGame()
         {
-            _logAction?.Invoke("Игра началась!");
+            Notificate("Игра началась!");
             DrawCardsToPlayersHand();
 
             var currentPlayer = _players[_currentPlayerIndex];
-            _logAction?.Invoke($"{currentPlayer.Name} начинает хож первым.");
+            Notificate($"{currentPlayer.Name} начинает ход первым.");
 
             StartTurn();
         }
@@ -52,12 +59,13 @@ namespace ScaryTales
         public void StartTurn()
         {
             Player currentPlayer = _players[_currentPlayerIndex];
-            _logAction?.Invoke($"{currentPlayer.Name} начинает ход.");
+            Notificate($"{currentPlayer.Name} начинает ход.");
             // Логика начала хода (например, вытягивание карты, проверка эффектов и т.д.)
             _gameBoard.ShowCardsOnBoard();
             currentPlayer.DrawCard();
             currentPlayer.ShowHand();
             var card = currentPlayer.PlayCard(int.Parse(Console.ReadLine()!) - 1);
+            card.ActivateEffect(_gameBoard, this, CardEffectTimeApply.Immediately);
             EndTurn();
         }
 
@@ -66,7 +74,20 @@ namespace ScaryTales
         public void EndTurn()
         {
             Player currentPlayer = _players[_currentPlayerIndex];
-            _logAction?.Invoke($"{currentPlayer.Name} завершает ход.");
+
+            // Пассивный фарм.
+            var cards = _gameBoard.GetCardsOnBoard()
+                .Where(x => x.Owner.Name == currentPlayer.Name
+                && x.Position == CardPosition.BeforePlayer
+                && x.Effect.Type == CardEffectType.PassiveFarmAtTheEnd).ToList();
+
+            foreach (var card in cards)
+            {
+                Notificate($"Эффект карты {card.Name}");
+                card.ActivateEffect(_gameBoard, this, CardEffectTimeApply.PassiveIncome);
+            }
+
+            Notificate($"{currentPlayer.Name} завершает ход.");
 
 
             // Подсчёт и назначение очков игроку
@@ -105,7 +126,7 @@ namespace ScaryTales
         // Метод для завершения игры
         private void EndGame()
         {
-            _logAction?.Invoke("Игра закончена!");
+            Notificate("Игра закончена!");
 
             // Определение победителя (например, игрок с наибольшим количеством очков)
             Player? winner = null;
@@ -122,11 +143,11 @@ namespace ScaryTales
 
             if (winner != null)
             {
-                _logAction?.Invoke($"Победитель: {winner.Name} с {winner.Score} очками!");
+                Notificate($"Победитель: {winner.Name} с {winner.Score} очками!");
             }
             else
             {
-                _logAction?.Invoke("Ничья!");
+                Notificate("Ничья!");
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using ScaryTales.Abstractions;
+using ScaryTales.CardEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,21 @@ namespace ScaryTales.Cards
 
         public override CardPosition PositionAfterDiscard => CardPosition.Discarded;
 
-        public override int CardCountInDeck => 2;
+        public override int CardCountInDeck => 8;
 
-        protected override ICardEffect Effect => throw new NotImplementedException();
+        public override ICardEffect Effect => new DarkLordEffect();
+
+        public override void ActivateEffect(IGameBoard gameBoard, IGameState gameState, CardEffectTimeApply time)
+        {
+            if (Effect.EffectTime == time)
+            {
+                Effect.ApplyEffect(gameState, gameBoard);
+            }
+        }
+
+        public override Card Clone()
+        {
+            return new DarkLordCard();
+        }
     }
 }

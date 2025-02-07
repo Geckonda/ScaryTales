@@ -54,7 +54,7 @@ namespace ScaryTales
         }
 
         // Метод для сброса карты из руки (карта перемещается на игровое поле)
-        public void DiscardCard(Card card)
+        public void DiscardCardFromHand(Card card)
         {
             if (_hand.Contains(card))
             {
@@ -69,19 +69,29 @@ namespace ScaryTales
         }
 
         // Метод для сброса карты по индексу (например, игрок выбирает карту для сброса)
-        public void DiscardCard(int index)
+        public void DiscardCardFormHand(int index)
         {
             if (index >= 0 && index < _hand.Count)
             {
                 var card = _hand[index];
-                DiscardCard(card);
+                DiscardCardFromHand(card);
             }
             else
             {
                 throw new ArgumentOutOfRangeException("Неверный индекс карты.");
             }
         }
-
+        public void DiscardCardFromBoard(Card card)
+        {
+            if(_gameBoard.GetCardsOnBoard().Contains(card))
+            {
+                _gameBoard.AddCardToDiscardPile(card);
+            }
+            else
+            {
+                throw new InvalidOperationException("Эта карта не находится на столе");
+            }
+        }
         // Метод для использования карты из руки (с последующим сбросом на игровое поле)
         public Card PlayCard(int index)
         {
@@ -99,6 +109,11 @@ namespace ScaryTales
             }
         }
 
+        public Card ChooseCardFromBoard(int index)
+        {
+            return _gameBoard.GetCardsOnBoard()[index];
+        }
+
         // Метод для отображения карт в руке
         public void ShowHand()
         {
@@ -108,6 +123,7 @@ namespace ScaryTales
                 Output?.Invoke($"{i + 1}. {_hand[i].Name} ({_hand[i].Type})");
             }
         }
+
 
         // Получение количества карт в руке
         public int HandCount => _hand.Count;
