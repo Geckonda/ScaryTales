@@ -25,12 +25,12 @@ namespace ScaryTales.CardEffects
             // Пользователь выбирает карту на сброс
             var places = gameBoard.GetCardsOnBoard()
                 .Where(x => x.Type == CardType.Place).ToList();
-            if (places.Count == 0)
+            if (!places.Any())
             {
                 Console.WriteLine("Нет ни одной карты 'Место' на столе");
                 return;
             }
-            PrintMonsters(places);
+            PrintCards(places, gameState.Notificate, "Место");
             var index = int.Parse(Console.ReadLine()!) - 1;
             var place = places[index];
             gameState.Notificate($"Игрок {player.Name} сбросил карту {place.Name}");
@@ -38,17 +38,15 @@ namespace ScaryTales.CardEffects
             // !!! Костыль
         }
 
-        private void PrintMonsters(List<Card> places)
+        private void PrintCards(List<Card> cards,
+            Action<string> notificate,
+            string cardType)
         {
-            if(places.Count == 0)
+            var card = cards.FirstOrDefault();
+            notificate($"Карты типа {cardType}");
+            for (int i = 0; i < cards.Count; i++)
             {
-                Console.WriteLine("Нет ни одной карты 'Место' на столе");
-                return;
-            }
-            Console.WriteLine("'Места' на столе:");
-            for (int i = 0; i < places.Count; i++)
-            {
-                Console.WriteLine($"{i+1} - {places[i]}");
+                notificate($"{i + 1} - {cards[i].Name}");
             }
         }
     }
