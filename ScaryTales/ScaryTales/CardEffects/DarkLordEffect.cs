@@ -1,4 +1,5 @@
 ﻿using ScaryTales.Abstractions;
+using ScaryTales.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,24 +29,12 @@ namespace ScaryTales.CardEffects
                 Console.WriteLine("Нет ни одной карты 'Место' на столе");
                 return;
             }
-            PrintCards(places, gameState.Notificate, "Место");
+            Printer.PrintCardList(places, gameState.Notificate, "Место");
             var index = int.Parse(Console.ReadLine()!) - 1;
             var place = places[index];
             gameState.Notificate($"Игрок {player.Name} сбросил карту {place.Name}");
             player.DiscardCardFromBoard(place);
             // !!! Костыль
-        }
-
-        private void PrintCards(List<Card> cards,
-            Action<string> notificate,
-            string cardType)
-        {
-            var card = cards.FirstOrDefault();
-            notificate($"Карты типа {cardType}");
-            for (int i = 0; i < cards.Count; i++)
-            {
-                notificate($"{i + 1} - {cards[i].Name}");
-            }
         }
     }
 }
