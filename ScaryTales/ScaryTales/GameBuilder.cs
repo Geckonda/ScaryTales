@@ -44,7 +44,7 @@ namespace ScaryTales
                 new EnchantedForestCard(),
                 new PrincessCard(),
                 new MerchantCard(),
-                //new WizardCard(),
+                new WizardCard(),
             };
         }
         private List<Item> MakeItemTemplates()
