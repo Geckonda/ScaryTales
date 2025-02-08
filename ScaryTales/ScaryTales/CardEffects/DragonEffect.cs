@@ -32,7 +32,6 @@ namespace ScaryTales.CardEffects
                 manager.PrintMessage("Нет ни одной карты типа 'Место' на столе");
             else
             {
-                Printer.PrintCardList(places, manager.PrintMessage, "Место");
                 var place = player.SelectCardAmongOthers(places);
                 manager.PrintMessage($"Игрок {player.Name} сбросил карту {place.Name}");
                 board.RemoveCardFromBoard(place);
@@ -43,7 +42,6 @@ namespace ScaryTales.CardEffects
                 manager.PrintMessage("Нет ни одной карты типа 'Мужчина' на столе");
             else
             {
-                Printer.PrintCardList(men, manager.PrintMessage, "Мужчина");
                 var man = player.SelectCardAmongOthers(men);
                 manager.PrintMessage($"Игрок {player.Name} сбросил карту {man.Name}");
                 board.RemoveCardFromBoard(man);

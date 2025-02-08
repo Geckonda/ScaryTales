@@ -26,7 +26,6 @@ namespace ScaryTales.CardEffects
                 manager.PrintMessage("Нет ни одной карты типа 'Мужчина' на столе.");
                 return;
             }
-            Printer.PrintCardList(men, manager.PrintMessage, "Мужчина");
             var man = player.SelectCardAmongOthers(men);
             board.RemoveCardFromBoard(man);
             manager.PutCardInPlayerHand(man, player);

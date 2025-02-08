@@ -30,8 +30,6 @@ namespace ScaryTales.CardEffects
                 manager.PrintMessage("Нет ни одной карты 'Место' на столе");
                 return;
             }
-            Printer.PrintCardList(places,
-                manager.PrintMessage, "Место");
             var place = player.SelectCardAmongOthers(places);
             manager.PrintMessage($"Игрок {player.Name} сбросил карту {place.Name}");
             board.RemoveCardFromBoard(place);
