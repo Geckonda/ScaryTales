@@ -51,6 +51,14 @@ namespace ScaryTales.Abstractions
         /// Переключить фазу игры.
         /// </summary>
         void ToggleNightPhase();
+        /// <summary>
+        /// Устанавливает значение ночи
+        /// </summary>
+        void SetPhase(bool isNight);
+        /// <summary>
+        /// Возвращает время суток в виде строки
+        /// </summary>
+        string GetTimeOfday();
     }
 
 }

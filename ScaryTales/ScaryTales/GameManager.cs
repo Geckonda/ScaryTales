@@ -26,11 +26,16 @@ namespace ScaryTales
         public void PrintMessage(string message) => _notifier.Notify(message);
         public void StartGame()
         {
+            // Установка ночи в начале игры
+            Card night = _context.Deck.TakeCardByName("Ночь")!;
+            PutCardInTimeOfDaySlot(night);
+
             PrintMessage("Раздача карт.");
             DrawCardsToPlayersHand();
 
             var currentPlayer = _context.GameState.GetCurrentPlayer();
             PrintMessage($"{currentPlayer.Name} начинает ход первым.");
+
 
             PrintMessage("Игра началась!");
             Run();
@@ -83,7 +88,10 @@ namespace ScaryTales
             var gameState = _context.GameState;
             var player = _context.GameState.GetCurrentPlayer();
 
+            PrintMessage($"Время суток {gameState.GetTimeOfday()}.");
             PrintMessage($"{player.Name} начинает ход.");
+
+            
             // 1. Взять 1 карту
             DrawCard(player);
             // 2. Взять 1 предмет
@@ -195,6 +203,12 @@ namespace ScaryTales
                     PrintMessage($"Карта {card.Name} была разыграна и сброшена.");
                     break;
                 }
+                case(CardPosition.TimeOfDay):
+                {
+                    PutCardInTimeOfDaySlot(card);
+                    PrintMessage($"Карта {card.Name} была разыграна.");
+                    break;
+                }
             }
         }
         public void PutCardToDiscardPile(Card card)
@@ -221,6 +235,13 @@ namespace ScaryTales
             player.AddCardToHand(card);
             card.Position = CardPosition.InHand;
             card.Owner = player;
+        }
+
+        public void PutCardInTimeOfDaySlot(Card card)
+        {
+            var board = _context.GameBoard;
+            board.SetTimeOfDaySlot(card);
+            card.Position = CardPosition.TimeOfDay;
         }
         public void EndGame()
         {

@@ -30,6 +30,10 @@ namespace ScaryTales.Enums
         /// <summary>
         /// Сброшенная карта
         /// </summary>
-        Discarded
+        Discarded,
+        /// <summary>
+        /// Время суток
+        /// </summary>
+        TimeOfDay
     }
 }

@@ -70,5 +70,14 @@ namespace ScaryTales.Abstractions
         /// Добавляет карту в колоду сброса
         /// </summary>
         public void AddCardToDiscardPile(Card card);
+        /// <summary>
+        /// Устанавливает карту времени суток на столе
+        /// </summary>
+        public void SetTimeOfDaySlot(Card card);
+        /// <summary>
+        /// Возвращает карту, которая находится в слоте времени суток
+        /// </summary>
+        /// <returns></returns>
+        public Card? GetCardFormTimeOfDaySlot();
     }
 }

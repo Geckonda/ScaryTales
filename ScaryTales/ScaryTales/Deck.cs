@@ -55,5 +55,18 @@ namespace ScaryTales
         /// </summary>
         public int CardsRemaining => _cards.Count;
 
+        /// <summary>
+        /// Получение конкретной карты по имени из колоды
+        /// </summary>
+        /// <param name="name">Название карты</param>
+        /// <returns>Если такой карты нет, вернет null</returns>
+        public Card? TakeCardByName(string name)
+        {
+            if (_cards.Count == 0) return null;
+
+            var card = _cards.First(x => x.Name == name);
+            _cards.Remove(card);
+            return card;
+        }
     }
 }

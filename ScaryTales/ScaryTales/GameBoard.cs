@@ -1,4 +1,5 @@
 ﻿using ScaryTales.Abstractions;
+using ScaryTales.Cards;
 using ScaryTales.Enums;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,10 @@ namespace ScaryTales
         /// Карты, сброшенные в колоду сброса
         /// </summary>
         private List<Card> _discardPile;
+        /// <summary>
+        /// Карта времени суток
+        /// </summary>
+        private Card? _timeOfDay;
         public GameBoard()
         {
             _cardsOnBoard = new List<Card>();
@@ -65,5 +70,12 @@ namespace ScaryTales
 
         public void AddCardToDiscardPile(Card card) => _discardPile.Add(card);
 
+        public void SetTimeOfDaySlot(Card card)
+        {
+            if(card is DayCard || card is NightCard)
+                _timeOfDay = card;
+        }
+
+        public Card? GetCardFormTimeOfDaySlot() => _timeOfDay;
     }
 }

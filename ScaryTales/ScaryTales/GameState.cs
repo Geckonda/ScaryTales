@@ -42,5 +42,13 @@ namespace ScaryTales
         {
             IsNight = !IsNight;
         }
+
+        public void SetPhase(bool isNight)
+        {
+            IsNight = isNight;
+        }
+
+        public string GetTimeOfday()
+            => IsNight ? "Ночь" : "День";
     }
 }
