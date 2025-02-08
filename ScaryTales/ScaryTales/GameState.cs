@@ -18,7 +18,7 @@ namespace ScaryTales
         {
             Players = players;
             CurrentPlayerIndex = 0; // Начинаем с первого игрока
-            IsNight = false;
+            IsNight = true;
             IsGameOver = false;
             TurnCount = 0;
         }

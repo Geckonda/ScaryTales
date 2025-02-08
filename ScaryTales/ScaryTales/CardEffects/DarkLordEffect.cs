@@ -34,6 +34,7 @@ namespace ScaryTales.CardEffects
                 manager.PrintMessage, "Место");
             var place = player.SelectCardAmongOthers(places);
             manager.PrintMessage($"Игрок {player.Name} сбросил карту {place.Name}");
+            board.RemoveCardFromBoard(place);
             manager.PutCardToDiscardPile(place);
         }
     }

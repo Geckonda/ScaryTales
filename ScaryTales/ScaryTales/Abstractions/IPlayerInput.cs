@@ -12,9 +12,14 @@ namespace ScaryTales.Abstractions
     public interface IPlayerInput
     {
         /// <summary>
-        /// Позволяет игроку выбрать один объект из списка.
+        /// Позволяет игроку выбрать одну карту из списка.
         /// </summary>
-        T Select<T>(List<T> options);
+        Card SelectCard(List<Card> cards);
+
+        /// <summary>
+        /// Позволяет игроку выбрать один предмет из списка.
+        /// </summary>
+        Item SelectItem(List<Item> items);
         /// <summary>
         /// Позволяет пользователю выбрать Да/Нет
         /// </summary>

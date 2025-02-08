@@ -67,13 +67,13 @@ namespace ScaryTales
         /// </summary>
         /// <returns>Карта на розыгрыш</returns>
         public Card SelectCardInHand()
-            => _playerInput.Select(_hand);
+            => _playerInput.SelectCard(_hand);
         /// <summary>
         /// Выбирает карту среди других карт
         /// </summary>
         /// <param name="cards">Карты, среди которых стоит выбрать</param>
         public Card SelectCardAmongOthers(List<Card> cards)
-            => _playerInput.Select(cards);
+            => _playerInput.SelectCard(cards);
         /// <summary>
         /// Добавляет игроку предмет
         /// </summary>
@@ -90,6 +90,6 @@ namespace ScaryTales
         /// Игрок выбирает нужный ему предмет
         /// </summary>
         public Item SelectItem(List<Item> items)
-            => _playerInput.Select(items);
+            => _playerInput.SelectItem(items);
     }
 }

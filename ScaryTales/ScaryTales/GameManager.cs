@@ -31,7 +31,7 @@ namespace ScaryTales
             PrintMessage($"{currentPlayer.Name} начинает ход первым.");
 
             PrintMessage("Игра началась!");
-            GameCourse();
+            Run();
         }
 
         private void DrawCardsToPlayersHand()
@@ -68,7 +68,7 @@ namespace ScaryTales
         private void Run()
 
         {
-            while(_context.GameState.IsGameOver)
+            while(!_context.GameState.IsGameOver)
             {
                 GameCourse();
             }
@@ -81,6 +81,7 @@ namespace ScaryTales
             PrintMessage($"{player.Name} начинает ход.");
             // 1. Взять 1 карту
             DrawCard(player);
+            PrintMessage($"Осталось карт в колоде: {_context.Deck.CardsRemaining}");
             // 2. Взять1 предмет
             PlayItem(player);
             // 3. Разыграть карту

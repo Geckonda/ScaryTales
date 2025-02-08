@@ -35,6 +35,7 @@ namespace ScaryTales.CardEffects
                 Printer.PrintCardList(places, manager.PrintMessage, "Место");
                 var place = player.SelectCardAmongOthers(places);
                 manager.PrintMessage($"Игрок {player.Name} сбросил карту {place.Name}");
+                board.RemoveCardFromBoard(place);
                 manager.PutCardToDiscardPile(place);
                 manager.AddPointsToPlayer(player, 2);
             }
@@ -45,6 +46,7 @@ namespace ScaryTales.CardEffects
                 Printer.PrintCardList(men, manager.PrintMessage, "Мужчина");
                 var man = player.SelectCardAmongOthers(men);
                 manager.PrintMessage($"Игрок {player.Name} сбросил карту {man.Name}");
+                board.RemoveCardFromBoard(man);
                 manager.PutCardToDiscardPile(man);
                 manager.AddPointsToPlayer(player, 2);
             }

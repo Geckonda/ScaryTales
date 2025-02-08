@@ -43,6 +43,7 @@ namespace ScaryTales
                 new DragonCard(),
                 new EnchantedForestCard(),
                 new PrincessCard(),
+                new MerchantCard(),
                 //new WizardCard(),
             };
         }

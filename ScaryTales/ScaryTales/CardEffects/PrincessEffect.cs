@@ -28,6 +28,7 @@ namespace ScaryTales.CardEffects
             }
             Printer.PrintCardList(men, manager.PrintMessage, "Мужчина");
             var man = player.SelectCardAmongOthers(men);
+            board.RemoveCardFromBoard(man);
             manager.PutCardInPlayerHand(man, player);
         }
     }
