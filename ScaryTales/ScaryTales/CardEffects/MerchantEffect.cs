@@ -19,11 +19,7 @@ namespace ScaryTales.CardEffects
             var manager = context.GameManager;
             var player = state.GetCurrentPlayer();
             var deck = context.Deck;
-            if (deck.CardsRemaining == 0)
-            {
-                manager.PrintMessage("В колоде не осталось карт.");
-                return;
-            }
+
             manager.DrawCard(player);
             manager.DrawCard(player);
 
