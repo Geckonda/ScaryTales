@@ -22,6 +22,7 @@ namespace ScaryTales.CardEffects
             {
                 manager.PrintMessage($"Игрок {player.Name} вытянул карту {card.Name} и тут же разыграл.");
                 manager.CardEffectActivate(card);
+                manager.MoveCardToItsPosition(card);
             }
         }
     }
