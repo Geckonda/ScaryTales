@@ -26,7 +26,11 @@ namespace ScaryTales.CardEffects
 
         public void ApplyEffect(IGameContext context)
         {
-            throw new NotImplementedException();
+            var state = context.GameState;
+            var manager = context.GameManager;
+            var player = state.GetCurrentPlayer();
+
+            manager.AddPointsToPlayer(player, _points);
         }
     }
 }

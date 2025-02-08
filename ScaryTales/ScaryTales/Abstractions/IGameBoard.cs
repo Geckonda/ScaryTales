@@ -18,6 +18,10 @@ namespace ScaryTales.Abstractions
         /// <returns>Все разыгранные карты на столе</returns>
         public List<Card> GetCardsOnBoard();
         /// <summary>
+        /// Получение всех разыгранных карт конкретного игрока, которые в данный момент на столе
+        /// </summary>
+        public List<Card> GetCardsOnBoard(Player player);
+        /// <summary>
         /// Получение всех уже сброшенных карт
         /// </summary>
         /// <returns>Все сброшенные карты за игру</returns>

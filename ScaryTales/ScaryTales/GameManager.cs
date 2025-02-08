@@ -45,11 +45,14 @@ namespace ScaryTales
                 for (int i = 0; i < 5; i++)
                 {
                     var card = deck.DrawCard();
-                    player.AddCardToHand(card!);
-                    card!.Position = CardPosition.InHand;
+                    PutCardInPlayerHand(card!, player);
                 }
             }
         }
+        /// <summary>
+        /// Пытается вытянуть карту из колоды, если она не пуста.
+        /// </summary>
+        /// <returns>Карта или null. БЕЗ ВЛАДЕЛЬЦА</returns>
         public Card? TryDrawCardFromDeck()
         {
             var deck = _context.Deck;
@@ -87,6 +90,9 @@ namespace ScaryTales
             PlayItem(player);
             // 3. Разыграть карту
             PlayCard(player);
+
+            // Активация всех поссивных эффектов в конце хода игрока
+            ActivateAllPlayerPermanentCardEffects(player);
 
             gameState.NextTurn();
         }
@@ -128,12 +134,30 @@ namespace ScaryTales
             MoveCardToItsPosition(card);
         }
         /// <summary>
-        /// Активируется эффект карты
+        /// Активирует все постоянные эффекты активных карт игрока
+        /// </summary>
+        public void ActivateAllPlayerPermanentCardEffects(Player player)
+        {
+            var board = _context.GameBoard;
+            var cards = board.GetCardsOnBoard(player);
+            foreach (var card in cards)
+                ActivatePermanentCardEffect(card);
+        }
+        /// <summary>
+        /// Активируется мгновенный эффект карты
         /// </summary>
         public void ActivateInstantCardEffect(Card card)
         {
             if(card.Effect.Type == CardEffectTimeType.Instant)
-                card.Effect.ApplyEffect(_context);
+                card.ActivateEffect(_context);
+        }
+        /// <summary>
+        /// Активируется постоянный эффект карты
+        /// </summary>
+        public void ActivatePermanentCardEffect(Card card)
+        {
+            if (card.Effect.Type == CardEffectTimeType.PermanentAtTheEnd)
+                card.ActivateEffect(_context);
         }
         /// <summary>
         /// Присвоение пользователю ПО
@@ -178,6 +202,7 @@ namespace ScaryTales
             var board = _context.GameBoard;
             board.AddCardToDiscardPile(card);
             card.Position = CardPosition.Discarded;
+            card.Owner = null;
         }
         public void PutCardOnBoard(Card card)
         {
@@ -195,6 +220,7 @@ namespace ScaryTales
         {
             player.AddCardToHand(card);
             card.Position = CardPosition.InHand;
+            card.Owner = player;
         }
         public void EndGame()
         {

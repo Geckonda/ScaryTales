@@ -27,7 +27,9 @@ namespace ScaryTales.Cards
 
         public override void ActivateEffect(IGameContext context)
         {
-            Effect.ApplyEffect(context);
+            context.GameManager.PrintMessage($"Пассивный эффект карты {this.Name}");
+            if(context.GameState.IsNight)
+                Effect.ApplyEffect(context);
         }
 
         public override Card Clone()

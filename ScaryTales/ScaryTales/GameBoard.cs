@@ -48,6 +48,10 @@ namespace ScaryTales
         {
             return _cardsOnBoard.Where(x => x.Name == name).ToList();
         }
+        public List<Card> GetCardsOnBoard(Player player)
+        {
+            return _cardsOnBoard.Where(x => x.Owner == player).ToList();
+        }
         public void MoveAllCardsToDiscardPile()
         {
             foreach (var card in _cardsOnBoard)
