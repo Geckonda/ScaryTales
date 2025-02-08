@@ -81,8 +81,7 @@ namespace ScaryTales
             PrintMessage($"{player.Name} начинает ход.");
             // 1. Взять 1 карту
             DrawCard(player);
-            PrintMessage($"Осталось карт в колоде: {_context.Deck.CardsRemaining}");
-            // 2. Взять1 предмет
+            // 2. Взять 1 предмет
             PlayItem(player);
             // 3. Разыграть карту
             PlayCard(player);
