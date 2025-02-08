@@ -47,6 +47,7 @@ namespace ScaryTales.CardEffects
                 manager.PrintMessage("Все игроки сбрасывают 1 карту из своей руки");
                 foreach (var p in players)
                 {
+                    manager.PrintMessage($"Игрок {p.Name} нужно выбрать карту для сброса.");
                     var card = p.SelectCardAmongOthers(p.Hand);
                     p.RemoveCardFromHand(card);
                     manager.PutCardToDiscardPile(card);
