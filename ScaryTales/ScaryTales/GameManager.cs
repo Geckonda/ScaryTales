@@ -148,16 +148,26 @@ namespace ScaryTales
         public void MoveCardToItsPosition(Card card)
         {
             var board = _context.GameBoard;
-            if (card.PositionAfterPlay == CardPosition.OnGameBoard
-                || card.PositionAfterPlay == CardPosition.BeforePlayer)
+            switch (card.PositionAfterPlay)
             {
-                PutCardOnBoard(card);
-                PrintMessage($"Карта {card.Name} была разыграна на стол.");
-            }
-            if (card.Position == CardPosition.Discarded)
-            {
-                PutCardToDiscardPile(card);
-                PrintMessage($"Карта {card.Name} была разыграна и сброшена.");
+                case (CardPosition.OnGameBoard):
+                {
+                    PutCardOnBoard(card);
+                    PrintMessage($"Карта {card.Name} была разыграна на стол.");
+                    break;
+                }
+                case (CardPosition.BeforePlayer):
+                {
+                    PutCardBeforePlayer(card);
+                    PrintMessage($"Карта {card.Name} была разыграна на стол перед игроком.");
+                    break;
+                }
+                case (CardPosition.Discarded):
+                {
+                    PutCardToDiscardPile(card);
+                    PrintMessage($"Карта {card.Name} была разыграна и сброшена.");
+                    break;
+                }
             }
         }
         public void PutCardToDiscardPile(Card card)
