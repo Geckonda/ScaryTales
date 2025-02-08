@@ -13,6 +13,8 @@ namespace ScaryTales
         private readonly IGameContext _context;
         private readonly INotifier _notifier;
 
+
+        private List<Action> _cardEffectsActAtTheEndPlayerTurn = new();
         public GameManager(List<Player> players,
             Deck deck, ItemManager items, INotifier notifier)
         {
@@ -122,15 +124,16 @@ namespace ScaryTales
             player.RemoveCardFromHand(card);
             PrintMessage($"Игрок {player.Name} разыгрывает карту {card.Name}.");
             AddPointsToPlayer(player, card.Points);
-            CardEffectActivate(card);
+            ActivateInstantCardEffect(card);
             MoveCardToItsPosition(card);
         }
         /// <summary>
         /// Активируется эффект карты
         /// </summary>
-        public void CardEffectActivate(Card card)
+        public void ActivateInstantCardEffect(Card card)
         {
-            card.Effect.ApplyEffect(_context);
+            if(card.Effect.Type == CardEffectTimeType.Instant)
+                card.Effect.ApplyEffect(_context);
         }
         /// <summary>
         /// Присвоение пользователю ПО
