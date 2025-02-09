@@ -13,6 +13,11 @@ namespace ScaryTales
         /// Основная колода
         /// </summary>
         private List<Card> _cards = new();
+        /// <summary>
+        /// Изначальное количество карт в колоде
+        /// </summary>
+        private readonly int _countDeckInitial;
+        public int CountDeckInitial => _countDeckInitial;
 
         /// <summary>
         /// Конструктор для создания колоды по шаблонам
@@ -25,6 +30,8 @@ namespace ScaryTales
                     _cards.Add(template.Clone());
 
             Shuffle();
+
+            _countDeckInitial = _cards.Count;
         }
 
         /// <summary>
