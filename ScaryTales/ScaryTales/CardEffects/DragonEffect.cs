@@ -22,7 +22,7 @@ namespace ScaryTales.CardEffects
             var places = board.GetCardsOnBoard(CardType.Place);
             var men = board.GetCardsOnBoard(CardType.Man);
 
-            if (places.Any() && men.Any())
+            if (!places.Any() && !men.Any())
             {
                 manager.PrintMessage("Не нашлось ни одной карты для сброса.");
                 return;
