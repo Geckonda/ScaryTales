@@ -64,8 +64,9 @@ namespace ScaryTales
         {
             if (_cards.Count == 0) return null;
 
-            var card = _cards.First(x => x.Name == name);
-            _cards.Remove(card);
+            var card = _cards.FirstOrDefault(x => x.Name == name);
+            if (card != null)
+                _cards.Remove(card);
             return card;
         }
     }
