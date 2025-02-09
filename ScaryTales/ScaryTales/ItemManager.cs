@@ -40,7 +40,10 @@ namespace ScaryTales
                 _availableItems.Remove(item);
             return item;
         }
-
+        /// <summary>
+        /// Возвращает копию предмета из запаса предметов
+        /// </summary>
+        /// <returns>Копия предмета</returns>
         public Item? GetCloneItemByType(ItemType type)
         {
             var item = _availableItems.FirstOrDefault(x => x.Type == type);
