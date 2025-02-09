@@ -54,6 +54,7 @@ namespace ScaryTales
                 new YoungHeroCard(),
                 new HiddenCaveCard(),
                 new CursedCastleCard(),
+                new CharmCard(),
             };
         }
         private List<Item> MakeItemTemplates()
