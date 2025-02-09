@@ -31,6 +31,10 @@ namespace ScaryTales
         /// Предметы, которыми владеет игрок
         /// </summary>
         private List<Item> _itemsBag;
+        /// <summary>
+        /// Количество предметов в сумке игрока
+        /// </summary>
+        public int ItemsBagCount => _itemsBag.Count;
 
         public Player(string name, IPlayerInput playerInput)
         {
