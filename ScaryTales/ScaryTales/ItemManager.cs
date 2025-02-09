@@ -41,6 +41,11 @@ namespace ScaryTales
             return item;
         }
 
+        public Item? GetCloneItemByType(ItemType type)
+        {
+            var item = _availableItems.FirstOrDefault(x => x.Type == type);
+                return item?.Clone();
+        }
         /// <summary>
         /// Получение количества предмета конкретного типа
         /// </summary>
