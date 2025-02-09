@@ -5,7 +5,9 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScaryTales", "ScaryTales\ScaryTales.csproj", "{E6FB3E9C-FE5D-4A23-8E1A-167009C3AF60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game\Game.csproj", "{6D44E8C2-340C-4DF2-BABD-4B28B74896C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game", "Game\Game\Game.csproj", "{6D44E8C2-340C-4DF2-BABD-4B28B74896C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScaryTalesTests", "ScaryTalesTests\ScaryTalesTests.csproj", "{D2BC5D19-E1A9-4944-BF48-DCC1FB4AA498}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{6D44E8C2-340C-4DF2-BABD-4B28B74896C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D44E8C2-340C-4DF2-BABD-4B28B74896C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D44E8C2-340C-4DF2-BABD-4B28B74896C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2BC5D19-E1A9-4944-BF48-DCC1FB4AA498}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2BC5D19-E1A9-4944-BF48-DCC1FB4AA498}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2BC5D19-E1A9-4944-BF48-DCC1FB4AA498}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2BC5D19-E1A9-4944-BF48-DCC1FB4AA498}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
