@@ -49,7 +49,12 @@ namespace ScaryTales
         /// Метод начисления очков игроку
         /// </summary>
         /// <param name="points">Очки для начисления</param>
-        public void AddPoints(int points) => Score += points;
+        public void AddPoints(int points)
+        {
+            if (points < 0) 
+                throw new ArgumentException("Число должно быть положительным");
+            Score += points;
+        }
         /// <summary>
         /// Добавляет карты в руку
         /// </summary>
