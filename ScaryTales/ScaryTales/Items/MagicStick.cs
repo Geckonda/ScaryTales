@@ -9,7 +9,7 @@ namespace ScaryTales.Items
 {
     public class MagicStick : Item
     {
-        public override string Name => "Волшебная палочка";
+        public override string Name => "Волшебная палка";
 
         public override ItemType Type => ItemType.MagicStick;
 
