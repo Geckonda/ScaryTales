@@ -243,6 +243,10 @@ namespace ScaryTales
             board.SetTimeOfDaySlot(card);
             card.Position = CardPosition.TimeOfDay;
         }
+        public void PutItemInPlayerItemBag(Item item, Player player)
+        {
+            player.AddItemToItemBag(item);
+        }
         public void EndGame()
         {
             _context.GameState.EndGame();
