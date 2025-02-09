@@ -50,6 +50,7 @@ namespace ScaryTales
                 new OgreCard(),
                 new WisdomKingCard(),
                 new FollyKingCard(),
+                new FairyCard(),
             };
         }
         private List<Item> MakeItemTemplates()
