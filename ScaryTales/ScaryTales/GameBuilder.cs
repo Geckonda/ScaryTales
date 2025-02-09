@@ -49,6 +49,7 @@ namespace ScaryTales
                 new DayCard(),
                 new OgreCard(),
                 new WisdomKingCard(),
+                new FollyKingCard(),
             };
         }
         private List<Item> MakeItemTemplates()
