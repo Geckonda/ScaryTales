@@ -23,7 +23,8 @@ namespace ScaryTales.Cards
 
         public override int CardCountInDeck => 2;
 
-        public override ICardEffect Effect => new FairyEffect();
+        public override ICardEffect Effect =>
+            new ItemDistributor(new List<ItemType> { ItemType.MagicStick, ItemType.Sword });
 
         public override void ActivateEffect(IGameContext context)
         {
