@@ -35,7 +35,7 @@ namespace ScaryTales
         /// <returns>Если такой предмет еще есть, вернет его. Иначе null.</returns>
         public Item? GetItemByType(ItemType type)
         {
-            var item = _availableItems.First(x => x.Type == type);
+            var item = _availableItems.FirstOrDefault(x => x.Type == type);
             if(item != null)
                 _availableItems.Remove(item);
             return item;
