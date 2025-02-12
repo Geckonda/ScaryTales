@@ -13,11 +13,15 @@ namespace ScaryTales
     {
         private readonly IPlayerInput _playerInput;
         private readonly INotifier _notifier;
+        private readonly IGameBoard _gameBoard;
 
-        public GameBuilder(IPlayerInput playerInput, INotifier notifier)
+        public GameBuilder(IPlayerInput playerInput,
+            INotifier notifier,
+            IGameBoard gameBoard)
         {
             _playerInput = playerInput;
             _notifier = notifier;
+            _gameBoard = gameBoard;
         }
         public GameManager Build()
         {
@@ -30,8 +34,12 @@ namespace ScaryTales
             // Список игроков
             var players = new List<Player> { player1, player2 };
 
+            // Игровое состояние
+            var gameState = new GameState(players);
+
+
             // Создаем игровой менеджер
-            return new GameManager(players, deck, items, _notifier);
+            return new GameManager(gameState, _gameBoard, players, deck, items, _notifier);
         }
         private List<Card> MakeCardTemplates()
         {

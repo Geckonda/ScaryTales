@@ -14,14 +14,14 @@ namespace ScaryTales
         public List<Player> Players { get; private set; }
         public Deck Deck { get; private set; }
         public ItemManager ItemManager { get; private set; }
-        public GameManager GameManager { get; private set; }
+        public IGameManager GameManager { get; private set; }
 
         public GameContext(IGameState gameState,
             IGameBoard gameBoard,
             List<Player> players,
             Deck deck,
             ItemManager itemManager,
-            GameManager gameManager)
+            IGameManager gameManager)
         {
             GameState = gameState;
             GameBoard = gameBoard;

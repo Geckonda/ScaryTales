@@ -8,18 +8,19 @@ using System.Threading.Tasks;
 
 namespace ScaryTales
 {
-    public class GameManager
+    public class GameManager : IGameManager
     {
         private readonly IGameContext _context;
         private readonly INotifier _notifier;
 
 
         private List<Action> _cardEffectsActAtTheEndPlayerTurn = new();
-        public GameManager(List<Player> players,
-            Deck deck, ItemManager items, INotifier notifier)
+        public GameManager(IGameState gameState, IGameBoard gameBoard,
+            List<Player> players,Deck deck, ItemManager items,
+            INotifier notifier)
         {
             _context = new GameContext(
-                new GameState(players), new GameBoard(),
+                gameState, gameBoard,
                     players, deck, items, this);
             _notifier = notifier;
         }
@@ -41,7 +42,7 @@ namespace ScaryTales
             Run();
         }
 
-        private void DrawCardsToPlayersHand()
+        public void DrawCardsToPlayersHand()
         {
             var players = _context.Players;
             var deck = _context.Deck;
@@ -75,7 +76,7 @@ namespace ScaryTales
             else
                 return card;
         }
-        private void Run()
+        public void Run()
 
         {
             while(!_context.GameState.IsGameOver)
@@ -83,7 +84,7 @@ namespace ScaryTales
                 GameCourse();
             }
         }
-        private void GameCourse()
+        public void GameCourse()
         {
             var gameState = _context.GameState;
             var player = _context.GameState.GetCurrentPlayer();

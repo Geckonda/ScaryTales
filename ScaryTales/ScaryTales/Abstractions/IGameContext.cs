@@ -13,6 +13,6 @@ namespace ScaryTales.Abstractions
         public List<Player> Players { get; }
         public Deck Deck { get; }
         public ItemManager ItemManager { get; }
-        public GameManager GameManager { get; }
+        public IGameManager GameManager { get; }
     }
 }
