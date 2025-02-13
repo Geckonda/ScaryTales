@@ -3,6 +3,7 @@ using ScaryTales.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,13 +11,21 @@ namespace ScaryTales
 {
     public class GameManager : IGameManager
     {
-        private readonly IGameContext _context;
+        public readonly IGameContext _context;
         private readonly INotifier _notifier;
+        public event Action<Card, Player>? OnCardAddedToHand;
+        public event Action<Card>? OnCardPlayed;
+        public event Action<Card>? OnCardMovedToDiscardPile;
+        public event Action<Card>? OnCardMovedToBoard;
+        public event Action<Card>? OnCardMovedToBeforePlayer;
+        public event Action<Card>? OnCardMovedToTimeOfDaySlot;
+        public event Action<Item, Player>? OnItemAddToPlayer;
+        public event Action<Player>? OnAddPointsToPlayer;
+        public event Action<string>? OnMessagePrinted;
 
 
-        private List<Action> _cardEffectsActAtTheEndPlayerTurn = new();
         public GameManager(IGameState gameState, IGameBoard gameBoard,
-            List<Player> players,Deck deck, ItemManager items,
+            List<Player> players, Deck deck, ItemManager items,
             INotifier notifier)
         {
             _context = new GameContext(
@@ -24,7 +33,11 @@ namespace ScaryTales
                     players, deck, items, this);
             _notifier = notifier;
         }
-        public void PrintMessage(string message) => _notifier.Notify(message);
+        public void PrintMessage(string message)
+        {
+            _notifier.Notify(message);
+            OnMessagePrinted?.Invoke(message);
+        }
         public void StartGame()
         {
             // Установка ночи в начале игры
@@ -79,7 +92,7 @@ namespace ScaryTales
         public void Run()
 
         {
-            while(!_context.GameState.IsGameOver)
+            while (!_context.GameState.IsGameOver)
             {
                 GameCourse();
             }
@@ -92,7 +105,7 @@ namespace ScaryTales
             PrintMessage($"Время суток {gameState.GetTimeOfday()}.");
             PrintMessage($"{player.Name} начинает ход.");
 
-            
+
             // 1. Взять 1 карту
             DrawCard(player);
             // 2. Взять 1 предмет
@@ -142,6 +155,19 @@ namespace ScaryTales
             ActivateInstantCardEffect(card);
             MoveCardToItsPosition(card);
         }
+
+        public void PlayCard(Card card)
+        {
+            var player = _context.GameState.GetCurrentPlayer();
+            if (player.HasCard(card))
+            {
+                player.RemoveCardFromHand(card);
+                PrintMessage($"Игрок {player.Name} разыгрывает карту {card.Name}.");
+                AddPointsToPlayer(player, card.Points);
+                ActivateInstantCardEffect(card);
+                MoveCardToItsPosition(card);
+            }
+        }
         /// <summary>
         /// Активирует все постоянные эффекты активных карт игрока
         /// </summary>
@@ -157,7 +183,7 @@ namespace ScaryTales
         /// </summary>
         public void ActivateInstantCardEffect(Card card)
         {
-            if(card.Effect.Type == CardEffectTimeType.Instant)
+            if (card.Effect.Type == CardEffectTimeType.Instant)
                 card.ActivateEffect(_context);
         }
         /// <summary>
@@ -179,6 +205,7 @@ namespace ScaryTales
             {
                 PrintMessage($"Игрок {player.Name} получает {points} ПО.");
                 player.AddPoints(points);
+                OnAddPointsToPlayer?.Invoke(player);
             }
         }
         public void MoveCardToItsPosition(Card card)
@@ -187,29 +214,29 @@ namespace ScaryTales
             switch (card.PositionAfterPlay)
             {
                 case (CardPosition.OnGameBoard):
-                {
-                    PutCardOnBoard(card);
-                    PrintMessage($"Карта {card.Name} была разыграна на стол.");
-                    break;
-                }
+                    {
+                        PutCardOnBoard(card);
+                        PrintMessage($"Карта {card.Name} была разыграна на стол.");
+                        break;
+                    }
                 case (CardPosition.BeforePlayer):
-                {
-                    PutCardBeforePlayer(card);
-                    PrintMessage($"Карта {card.Name} была разыграна на стол перед игроком.");
-                    break;
-                }
+                    {
+                        PutCardBeforePlayer(card);
+                        PrintMessage($"Карта {card.Name} была разыграна на стол перед игроком.");
+                        break;
+                    }
                 case (CardPosition.Discarded):
-                {
-                    PutCardToDiscardPile(card);
-                    PrintMessage($"Карта {card.Name} была разыграна и сброшена.");
-                    break;
-                }
-                case(CardPosition.TimeOfDay):
-                {
-                    PutCardInTimeOfDaySlot(card);
-                    PrintMessage($"Карта {card.Name} была разыграна.");
-                    break;
-                }
+                    {
+                        PutCardToDiscardPile(card);
+                        PrintMessage($"Карта {card.Name} была разыграна и сброшена.");
+                        break;
+                    }
+                case (CardPosition.TimeOfDay):
+                    {
+                        PutCardInTimeOfDaySlot(card);
+                        PrintMessage($"Карта {card.Name} была разыграна.");
+                        break;
+                    }
             }
         }
         public void PutCardToDiscardPile(Card card)
@@ -218,24 +245,28 @@ namespace ScaryTales
             board.AddCardToDiscardPile(card);
             card.Position = CardPosition.Discarded;
             card.Owner = null;
+            OnCardMovedToDiscardPile?.Invoke(card);
         }
         public void PutCardOnBoard(Card card)
         {
             var board = _context.GameBoard;
             board.AddCardOnBoard(card);
             card.Position = CardPosition.OnGameBoard;
+            OnCardMovedToBoard?.Invoke(card);
         }
         public void PutCardBeforePlayer(Card card)
         {
             var board = _context.GameBoard;
             board.AddCardOnBoard(card); // Временно
             card.Position = CardPosition.BeforePlayer;
+            OnCardMovedToBeforePlayer?.Invoke(card);
         }
         public void PutCardInPlayerHand(Card card, Player player)
         {
             player.AddCardToHand(card);
             card.Position = CardPosition.InHand;
             card.Owner = player;
+            OnCardAddedToHand?.Invoke(card, player);
         }
 
         public void PutCardInTimeOfDaySlot(Card card)
@@ -243,10 +274,12 @@ namespace ScaryTales
             var board = _context.GameBoard;
             board.SetTimeOfDaySlot(card);
             card.Position = CardPosition.TimeOfDay;
+            OnCardMovedToTimeOfDaySlot?.Invoke(card);
         }
         public void PutItemInPlayerItemBag(Item item, Player player)
         {
             player.AddItemToItemBag(item);
+            OnItemAddToPlayer?.Invoke(item, player);
         }
         public void EndGame()
         {
