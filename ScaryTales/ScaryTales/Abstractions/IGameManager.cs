@@ -97,5 +97,15 @@ namespace ScaryTales.Abstractions
         /// Закончить игру
         /// </summary>
         public void EndGame();
+
+        public event Action<Card, Player>? OnCardAddedToHand;
+        public event Action<Card>? OnCardPlayed;
+        public event Action<Card>? OnCardMovedToDiscardPile;
+        public event Action<Card>? OnCardMovedToBoard;
+        public event Action<Card>? OnCardMovedToBeforePlayer;
+        public event Action<Card>? OnCardMovedToTimeOfDaySlot;
+        public event Action<Item, Player>? OnItemAddToPlayer;
+        public event Action<Player>? OnAddPointsToPlayer;
+        public event Action<string>? OnMessagePrinted;
     }
 }
