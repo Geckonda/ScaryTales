@@ -36,7 +36,7 @@ namespace ScaryTales
         public abstract ICardEffect Effect { get; }
 
 
-        public abstract void ActivateEffect(IGameContext context);
+        public abstract Task ActivateEffect(IGameContext context);
 
         public abstract Card Clone();
     }

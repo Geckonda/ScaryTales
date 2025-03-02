@@ -13,7 +13,7 @@ namespace ScaryTales.CardEffects
     {
         public CardEffectTimeType Type => CardEffectTimeType.Instant;
 
-        public void ApplyEffect(IGameContext context)
+        public async Task ApplyEffect(IGameContext context)
         {
             var state = context.GameState;
             var board = context.GameBoard;
@@ -32,7 +32,7 @@ namespace ScaryTales.CardEffects
                 manager.PrintMessage("Нет ни одной карты типа 'Место' на столе");
             else
             {
-                var place = player.SelectCardAmongOthers(places);
+                var place = await player.SelectCardAmongOthers(places);
                 manager.PrintMessage($"Игрок {player.Name} сбросил карту {place.Name}");
                 board.RemoveCardFromBoard(place);
                 manager.PutCardToDiscardPile(place);
@@ -42,7 +42,7 @@ namespace ScaryTales.CardEffects
                 manager.PrintMessage("Нет ни одной карты типа 'Мужчина' на столе");
             else
             {
-                var man = player.SelectCardAmongOthers(men);
+                var man = await player.SelectCardAmongOthers(men);
                 manager.PrintMessage($"Игрок {player.Name} сбросил карту {man.Name}");
                 board.RemoveCardFromBoard(man);
                 manager.PutCardToDiscardPile(man);

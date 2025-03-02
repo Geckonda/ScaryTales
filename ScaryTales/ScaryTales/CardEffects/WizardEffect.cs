@@ -12,7 +12,7 @@ namespace ScaryTales.CardEffects
     {
         public CardEffectTimeType Type => CardEffectTimeType.Instant;
 
-        public void ApplyEffect(IGameContext context)
+        public Task ApplyEffect(IGameContext context)
         {
             var manager = context.GameManager;
             var player = context.GameState.GetCurrentPlayer();
@@ -26,6 +26,7 @@ namespace ScaryTales.CardEffects
                 manager.ActivateInstantCardEffect(card);
                 manager.MoveCardToItsPosition(card);
             }
+            return Task.CompletedTask;
         }
     }
 }

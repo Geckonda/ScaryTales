@@ -17,7 +17,7 @@ namespace ScaryTales.CardEffects
             _itemTypes = types;
         }
 
-        public void ApplyEffect(IGameContext context)
+        public async Task ApplyEffect(IGameContext context)
         {
             var manager = context.GameManager;
             var itemManager = context.ItemManager;
@@ -42,7 +42,7 @@ namespace ScaryTales.CardEffects
                 PrintInavailableItems(inavailableItems!, manager.PrintMessage);
 
             // Игрок выбирает предмет из доступных
-            var selectedItem = player.SelectItem(availableItems!);
+            var selectedItem = await player.SelectItem(availableItems!);
 
             // Получаем оригинальный предмет (не клон) и добавляем в инвентарь
             var originalItem = itemManager.GetItemByType(selectedItem.Type);

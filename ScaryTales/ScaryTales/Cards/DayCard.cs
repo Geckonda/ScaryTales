@@ -25,12 +25,12 @@ namespace ScaryTales.Cards
 
         public override ICardEffect Effect => new SwapToDayEffect();
 
-        public override void ActivateEffect(IGameContext context)
+        public override async Task ActivateEffect(IGameContext context)
         {
             var card = context.GameBoard.GetCardFormTimeOfDaySlot()!;
             context.GameManager.PutCardToDiscardPile(card);
             if (context.GameState.IsNight == true)
-                Effect.ApplyEffect(context);
+                await Effect.ApplyEffect(context);
         }
 
         public override Card Clone()

@@ -9,17 +9,17 @@ namespace ScaryTales.Interaction_Entities.EnvUnity
 {
     public class UnityPlayerInput : IPlayerInput
     {
-        public Card SelectCard(List<Card> cards)
+        public Task<Card> SelectCard(List<Card> cards)
         {
             throw new NotImplementedException();
         }
 
-        public Item SelectItem(List<Item> items)
+        public Task<Item> SelectItem(List<Item> items)
         {
             throw new NotImplementedException();
         }
 
-        public bool YesOrNo()
+        public Task<bool> YesOrNo()
         {
             throw new NotImplementedException();
         }

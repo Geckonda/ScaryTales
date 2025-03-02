@@ -12,7 +12,7 @@ namespace ScaryTales.CardEffects
     {
         public CardEffectTimeType Type => CardEffectTimeType.Instant;
 
-        public void ApplyEffect(IGameContext context)
+        public async Task ApplyEffect(IGameContext context)
         {
             var state = context.GameState;
             var board = context.GameBoard;
@@ -32,7 +32,7 @@ namespace ScaryTales.CardEffects
             }
             else
             {
-                var place = player.SelectCardAmongOthers(places);
+                var place = await player.SelectCardAmongOthers(places);
                 board.RemoveCardFromBoard(place);
                 manager.PutCardInPlayerHand(place, player);
             }
@@ -43,7 +43,7 @@ namespace ScaryTales.CardEffects
             }
             else
             {
-                var woman = player.SelectCardAmongOthers(women);
+                var woman = await player.SelectCardAmongOthers(women);
                 board.RemoveCardFromBoard(woman);
                 manager.PutCardInPlayerHand(woman, player);
             }

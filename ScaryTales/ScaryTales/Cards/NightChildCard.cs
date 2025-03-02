@@ -25,12 +25,12 @@ namespace ScaryTales.Cards
 
         public override ICardEffect Effect { get; } = new PassiveFixPointsFarmEffect(2);
 
-        public override void ActivateEffect(IGameContext context)
+        public override async Task ActivateEffect(IGameContext context)
         {
             if (context.GameState.IsNight)
             {
                 context.GameManager.PrintMessage($"Пассивный эффект карты {this.Name}");
-                Effect.ApplyEffect(context);
+                await Effect.ApplyEffect(context);
             }
         }
 

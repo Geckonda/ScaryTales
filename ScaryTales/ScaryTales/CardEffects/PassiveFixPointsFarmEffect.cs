@@ -24,13 +24,14 @@ namespace ScaryTales.CardEffects
         }
         public CardEffectTimeType Type => CardEffectTimeType.PermanentAtTheEnd;
 
-        public void ApplyEffect(IGameContext context)
+        public Task ApplyEffect(IGameContext context)
         {
             var state = context.GameState;
             var manager = context.GameManager;
             var player = state.GetCurrentPlayer();
 
             manager.AddPointsToPlayer(player, _points);
+            return Task.CompletedTask;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace ScaryTales.CardEffects
     {
         public CardEffectTimeType Type => CardEffectTimeType.Instant;
 
-        public void ApplyEffect(IGameContext context)
+        public Task ApplyEffect(IGameContext context)
         {
             var state = context.GameState;
             var board = context.GameBoard;
@@ -24,13 +24,14 @@ namespace ScaryTales.CardEffects
             if (places.Count == 0)
             {
                 manager.PrintMessage("Нет ни одной карты типа 'Место' на столе");
-                return;
+                return Task.CompletedTask;
             }
             var earnedPoints = places.Count;
             if (state.IsNight)
                 manager.AddPointsToPlayer(player, earnedPoints * 2);
             else
                 manager.AddPointsToPlayer(player, earnedPoints);
+            return Task.CompletedTask;
         }
     }
 }

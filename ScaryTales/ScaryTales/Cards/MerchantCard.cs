@@ -24,10 +24,10 @@ namespace ScaryTales.Cards
         public override int CardCountInDeck => 3;
 
         public override ICardEffect Effect => new MerchantEffect();
-        
-        public override void ActivateEffect(IGameContext context)
+
+        public override async Task ActivateEffect(IGameContext context)
         {
-            Effect.ApplyEffect(context);
+            await Effect.ApplyEffect(context);
         }
 
         public override Card Clone()

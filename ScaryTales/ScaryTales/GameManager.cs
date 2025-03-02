@@ -97,7 +97,7 @@ namespace ScaryTales
                 GameCourse();
             }
         }
-        public void GameCourse()
+        public async void GameCourse()
         {
             var gameState = _context.GameState;
             var player = _context.GameState.GetCurrentPlayer();
@@ -109,12 +109,12 @@ namespace ScaryTales
             // 1. Взять 1 карту
             DrawCard(player);
             // 2. Взять 1 предмет
-            PlayItem(player);
+            await PlayItem(player);
             // 3. Разыграть карту
-            PlayCard(player);
+            await PlayCard(player);
 
             // Активация всех поссивных эффектов в конце хода игрока
-            ActivateAllPlayerPermanentCardEffects(player);
+            await ActivateAllPlayerPermanentCardEffects(player);
 
             gameState.NextTurn();
         }
@@ -133,14 +133,15 @@ namespace ScaryTales
         /// <summary>
         /// Разыгрывание игроком предмета (По желанию)
         /// </summary>
-        public void PlayItem(Player player)
+        public Task PlayItem(Player player)
         {
             PrintMessage("Выбор предмета Не работает!");
+            return Task.CompletedTask;
         }
         /// <summary>
         /// Разыгрывание игрком карты
         /// </summary>
-        public void PlayCard(Player player)
+        public async Task PlayCard(Player player)
         {
             if (player.Hand.Count == 0)
             {
@@ -148,15 +149,15 @@ namespace ScaryTales
                 EndGame();
             }
 
-            Card card = player.SelectCardInHand();
+            Card card = await player.SelectCardInHand();
             player.RemoveCardFromHand(card);
             PrintMessage($"Игрок {player.Name} разыгрывает карту {card.Name}.");
             AddPointsToPlayer(player, card.Points);
-            ActivateInstantCardEffect(card);
+            await ActivateInstantCardEffect(card);
             MoveCardToItsPosition(card);
         }
 
-        public void PlayCard(Card card)
+        public async Task PlayCard(Card card)
         {
             var player = _context.GameState.GetCurrentPlayer();
             if (player.HasCard(card))
@@ -164,35 +165,35 @@ namespace ScaryTales
                 player.RemoveCardFromHand(card);
                 PrintMessage($"Игрок {player.Name} разыгрывает карту {card.Name}.");
                 AddPointsToPlayer(player, card.Points);
-                ActivateInstantCardEffect(card);
+                await ActivateInstantCardEffect(card);
                 MoveCardToItsPosition(card);
             }
         }
         /// <summary>
         /// Активирует все постоянные эффекты активных карт игрока
         /// </summary>
-        public void ActivateAllPlayerPermanentCardEffects(Player player)
+        public async Task ActivateAllPlayerPermanentCardEffects(Player player)
         {
             var board = _context.GameBoard;
             var cards = board.GetCardsOnBoard(player);
             foreach (var card in cards)
-                ActivatePermanentCardEffect(card);
+                await ActivatePermanentCardEffect(card);
         }
         /// <summary>
         /// Активируется мгновенный эффект карты
         /// </summary>
-        public void ActivateInstantCardEffect(Card card)
+        public async Task ActivateInstantCardEffect(Card card)
         {
             if (card.Effect.Type == CardEffectTimeType.Instant)
-                card.ActivateEffect(_context);
+                await card.ActivateEffect(_context);
         }
         /// <summary>
         /// Активируется постоянный эффект карты
         /// </summary>
-        public void ActivatePermanentCardEffect(Card card)
+        public async Task ActivatePermanentCardEffect(Card card)
         {
             if (card.Effect.Type == CardEffectTimeType.PermanentAtTheEnd)
-                card.ActivateEffect(_context);
+                await card.ActivateEffect(_context);
         }
         /// <summary>
         /// Присвоение пользователю ПО

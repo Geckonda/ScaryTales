@@ -10,6 +10,6 @@ namespace ScaryTales.Abstractions
     public interface ICardEffect
     {
         public CardEffectTimeType Type { get; } // Тип эффекта
-        public void ApplyEffect(IGameContext context);
+        public Task ApplyEffect(IGameContext context);
     }
 }

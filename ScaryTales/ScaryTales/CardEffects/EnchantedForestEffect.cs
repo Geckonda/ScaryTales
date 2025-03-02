@@ -13,7 +13,7 @@ namespace ScaryTales.CardEffects
     {
         public CardEffectTimeType Type => CardEffectTimeType.Instant;
 
-        public void ApplyEffect(IGameContext context)
+        public async Task ApplyEffect(IGameContext context)
         {
             var state = context.GameState;
             var manager = context.GameManager;
@@ -48,7 +48,7 @@ namespace ScaryTales.CardEffects
                 foreach (var p in players)
                 {
                     manager.PrintMessage($"Игрок {p.Name} нужно выбрать карту для сброса.");
-                    var card = p.SelectCardAmongOthers(p.Hand);
+                    var card = await p.SelectCardAmongOthers(p.Hand);
                     p.RemoveCardFromHand(card);
                     manager.PutCardToDiscardPile(card);
                 }

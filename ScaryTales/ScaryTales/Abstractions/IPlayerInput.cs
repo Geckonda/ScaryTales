@@ -14,15 +14,15 @@ namespace ScaryTales.Abstractions
         /// <summary>
         /// Позволяет игроку выбрать одну карту из списка.
         /// </summary>
-        Card SelectCard(List<Card> cards);
+        Task<Card> SelectCard(List<Card> cards);
 
         /// <summary>
         /// Позволяет игроку выбрать один предмет из списка.
         /// </summary>
-        Item SelectItem(List<Item> items);
+        Task<Item> SelectItem(List<Item> items);
         /// <summary>
         /// Позволяет пользователю выбрать Да/Нет
         /// </summary>
-        bool YesOrNo();
+        Task<bool> YesOrNo();
     }
 }

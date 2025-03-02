@@ -12,13 +12,14 @@ namespace ScaryTales.CardEffects
     {
         public CardEffectTimeType Type => CardEffectTimeType.Instant;
 
-        public void ApplyEffect(IGameContext context)
+        public Task ApplyEffect(IGameContext context)
         {
             var state = context.GameState;
             var manager = context.GameManager;
 
             manager.PrintMessage("Наступает день!");
             state.SetPhase(false);
+            return Task.CompletedTask;
         }
     }
 }

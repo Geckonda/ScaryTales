@@ -75,14 +75,14 @@ namespace ScaryTales
         /// Игрок выбирает карту со своей руки
         /// </summary>
         /// <returns>Карта на розыгрыш</returns>
-        public Card SelectCardInHand()
-            => _playerInput.SelectCard(_hand);
+        public async Task<Card> SelectCardInHand()
+            => await _playerInput.SelectCard(_hand);
         /// <summary>
         /// Выбирает карту среди других карт
         /// </summary>
         /// <param name="cards">Карты, среди которых стоит выбрать</param>
-        public Card SelectCardAmongOthers(List<Card> cards)
-            => _playerInput.SelectCard(cards);
+        public async Task<Card> SelectCardAmongOthers(List<Card> cards)
+            => await _playerInput.SelectCard(cards);
         /// <summary>
         /// Добавляет игроку предмет
         /// </summary>
@@ -98,7 +98,7 @@ namespace ScaryTales
         /// <summary>
         /// Игрок выбирает нужный ему предмет
         /// </summary>
-        public Item SelectItem(List<Item> items)
-            => _playerInput.SelectItem(items);
+        public async Task<Item> SelectItem(List<Item> items)
+            => await _playerInput.SelectItem(items);
     }
 }

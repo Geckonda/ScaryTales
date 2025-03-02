@@ -27,9 +27,9 @@ namespace ScaryTales.Cards
             => new ItemDistributor(new List<ItemType> 
             { ItemType.Armor, ItemType.MagicStick, ItemType.Coin, ItemType.Sword });
 
-        public override void ActivateEffect(IGameContext context)
+        public override async Task ActivateEffect(IGameContext context)
         {
-            Effect.ApplyEffect(context);
+            await Effect.ApplyEffect(context);
         }
 
         public override Card Clone()

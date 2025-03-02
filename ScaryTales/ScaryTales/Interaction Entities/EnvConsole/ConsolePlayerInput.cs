@@ -12,7 +12,7 @@ namespace ScaryTales.Interaction_Entities.EnvConsole
     /// </summary>
     public class ConsolePlayerInput : IPlayerInput
     {
-        public Card SelectCard(List<Card> cards)
+        public Task<Card> SelectCard(List<Card> cards)
         {
             Console.WriteLine("Выберите один из вариантов:");
             for (int i = 0; i < cards.Count; i++)
@@ -26,10 +26,10 @@ namespace ScaryTales.Interaction_Entities.EnvConsole
                 Console.WriteLine("Некорректный ввод. Попробуйте снова.");
             }
 
-            return cards[index - 1];
+            return Task.FromResult(cards[index - 1]);
         }
 
-        public Item SelectItem(List<Item> items)
+        public Task<Item> SelectItem(List<Item> items)
         {
             Console.WriteLine("Выберите один из вариантов:");
             for (int i = 0; i < items.Count; i++)
@@ -43,10 +43,10 @@ namespace ScaryTales.Interaction_Entities.EnvConsole
                 Console.WriteLine("Некорректный ввод. Попробуйте снова.");
             }
 
-            return items[index - 1];
+            return Task.FromResult(items[index - 1]);
         }
 
-        public bool YesOrNo()
+        public Task<bool> YesOrNo()
         {
             Console.WriteLine("Да - 1 | Нет - 0");
             while (true)
@@ -54,9 +54,9 @@ namespace ScaryTales.Interaction_Entities.EnvConsole
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        return true;
+                        return Task.FromResult(true);
                     case "2":
-                        return false;
+                        return Task.FromResult(false);
                     default:
                         Console.WriteLine("Некорректный ввод. Попробуйте снова.");
                         break;
