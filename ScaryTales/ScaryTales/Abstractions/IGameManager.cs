@@ -46,6 +46,10 @@ namespace ScaryTales.Abstractions
         /// </summary>
         public Task PlayCard(Player player);
         /// <summary>
+        /// Разыгрывание игрком карты
+        /// </summary>
+        public Task PlayCard(Card card);
+        /// <summary>
         /// Активирует все постоянные эффекты активных карт игрока
         /// </summary>
         public Task ActivateAllPlayerPermanentCardEffects(Player player);

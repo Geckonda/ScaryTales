@@ -22,9 +22,10 @@ namespace ScaryTales.CardEffects
             {
                 manager.PrintMessage($"Игрок {player.Name} вытянул карту {card.Name} и тут же разыграл.");
                 manager.PutCardInPlayerHand(card, player);
-                manager.AddPointsToPlayer(player, card.Points);
-                manager.ActivateInstantCardEffect(card);
-                manager.MoveCardToItsPosition(card);
+                manager.PlayCard(card);
+                //manager.AddPointsToPlayer(player, card.Points);
+                //manager.ActivateInstantCardEffect(card);
+                //manager.MoveCardToItsPosition(card);
             }
             return Task.CompletedTask;
         }
